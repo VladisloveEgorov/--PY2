@@ -1,49 +1,35 @@
-import doctest
+BOOKS_DATABASE = [
+    {
+        "id": 1,
+        "name": "test_name_1",
+        "pages": 200,
+    },
+    {
+        "id": 2,
+        "name": "test_name_2",
+        "pages": 400,
+    }
+]
 
 
-class University:
-    def __init__(self, count_students: int, date_foundation: int):
+class Book:
+    def __init__(self, id_: int, name: str, pages: int):
+        self.id_ = id_
+        self.name = name
+        self.pages = pages
 
-        if not isinstance(date_foundation, int):
-            raise TypeError
+    def __str__(self) -> str:
+        return f'Книга "{self.name}"'
 
-        self.date_foundation = date_foundation
-
-        if not isinstance(count_students, int):
-            raise TypeError
-
-        if count_students < 0:
-            raise ValueError
-
-        self.count_students = count_students
+    def __repr__(self) -> str:
+        return f'Book(id_={self.id_}, name={self.name!r}, pages={self.pages})'
 
 
-class Car:
-    def __init__(self, motor: str, data_release: int):
+if __name__ == '__main__':
+    list_books = [
+        Book(id_=book_dict["id"], name=book_dict["name"], pages=book_dict["pages"]) for book_dict in BOOKS_DATABASE
+    ]
+    for book in list_books:
+        print(book)
 
-        if not isinstance(data_release, int):
-            raise TypeError
-
-        if data_release < 0:
-            raise ValueError
-
-        self.motor = motor
-        self.data_release = data_release
-
-
-class Museum:
-    def __init__(self, type_: str, number_exhibits: int):
-
-        if not isinstance(number_exhibits, int):
-            raise TypeError
-
-        if number_exhibits < 0:
-            raise ValueError
-
-        self.type_ = type_
-        self.number_exhibits = number_exhibits
-
-
-if __name__ == "__main__":
-    doctest.testmod()
-    pass
+    print(list_books)
