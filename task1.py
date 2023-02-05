@@ -1,49 +1,67 @@
-import doctest
+class Book:
+    """ Базовый класс книги. """
+    def __init__(self, name: str, author: str):
+        self.name = name
+        self.author = author
+
+    def __str__(self):
+        return f"Книга {self.name}. Автор {self.author}"
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}(name={self.name!r}, author={self.author!r})"
+
+    @property
+    def name_(self) -> str:
+        return self.name
+
+    @property
+    def author_(self) -> str:
+        return self.author
 
 
-class University:
-    def __init__(self, count_students: int, date_foundation: int):
+class PaperBook(Book):
+    def __init__(self, name: str, author: str, pages: int):
+        super().__init__(name, author)
+        self.pages = pages
 
-        if not isinstance(date_foundation, int):
-            raise TypeError
+    def __str__(self):
+        return f"Бумажная книга {self.name}. Автор {self.author}. Количество страниц {self.pages}"
 
-        self.date_foundation = date_foundation
+    def __repr__(self):
+        return f"{self.__class__.__name__}(name={self.name!r}, author={self.author!r}), page={self.pages!r}"
 
-        if not isinstance(count_students, int):
-            raise TypeError
+    @property
+    def pages_(self) -> int:
+        return self.pages
 
-        if count_students < 0:
-            raise ValueError
-
-        self.count_students = count_students
-
-
-class Car:
-    def __init__(self, motor: str, data_release: int):
-
-        if not isinstance(data_release, int):
-            raise TypeError
-
-        if data_release < 0:
-            raise ValueError
-
-        self.motor = motor
-        self.data_release = data_release
+    @pages_.setter
+    def pages_(self, pages: int) -> None:
+        if not isinstance(pages, int):
+            raise TypeError("Количество страниц должно быть типа int")
+        if pages <= 0:
+            raise ValueError("Количество страниц должно быть положительным числом")
+        self.pages = pages
 
 
-class Museum:
-    def __init__(self, type_: str, number_exhibits: int):
+class AudioBook(Book):
+    def __init__(self, name: str, author: str, duration: float):
+        super().__init__(name, author)
+        self.duration = duration
 
-        if not isinstance(number_exhibits, int):
-            raise TypeError
+    def __str__(self):
+        return f"Аудионига {self.name}. Автор {self.author}. Продолжительность {self.duration}"
 
-        if number_exhibits < 0:
-            raise ValueError
+    def __repr__(self):
+        return f"{self.__class__.__name__}(name={self.name!r}, author={self.author!r}), duration={self.duration!r}"
 
-        self.type_ = type_
-        self.number_exhibits = number_exhibits
+    @property
+    def duration_(self) -> float:
+        return self.duration
 
-
-if __name__ == "__main__":
-    doctest.testmod()
-    pass
+    @duration_.setter
+    def duration_(self, duration: float) -> None:
+        if not isinstance(duration, float):
+            raise TypeError("Продолжительность книги должна быть типа float")
+        if duration <= 0:
+            raise ValueError("Продолжительность книги должно быть положительным числом")
+        self.duration = duration
